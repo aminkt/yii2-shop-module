@@ -7,19 +7,22 @@ namespace aminkt\shop;
  */
 class Shop extends \yii\base\Module
 {
-    const THEME_PATH = '@aminkt/shop/views/default';
+    const THEME_PATH = '@shop/views/shop';
     /** @var null $theme theme mapping */
     public $theme = null;
     /**
      * @inheritdoc
      */
-    public $controllerNamespace = 'common\modules\shop\controllers';
+    public $controllerNamespace = 'aminkt\shop\controllers';
+
+    public $defaultRoute = 'shop';
 
     /**
      * @inheritdoc
      */
     public function init()
     {
+        \Yii::setAlias("@shop", __DIR__);
         parent::init();
 
         if($this->theme){

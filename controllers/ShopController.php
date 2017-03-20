@@ -5,9 +5,9 @@ namespace aminkt\shop\controllers;
 use yii\web\Controller;
 
 /**
- * Default controller for the `Shop` module
+ * Shop controller for the `Shop` module
  */
-class DefaultController extends Controller
+class ShopController extends Controller
 {
     /**
      * Renders the index view for the module

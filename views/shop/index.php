@@ -1,3 +1,7 @@
+<?php
+/* @var $this yii\web\View */
+$this->params['description']="xxxx";
+?>
 <div class="Shop-default-index">
     <h1><?= $this->context->action->uniqueId ?></h1>
     <p>
