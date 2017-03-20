@@ -1,6 +1,6 @@
 <?php
 
-namespace common\modules\shop\controllers;
+namespace aminkt\shop\controllers;
 
 use yii\web\Controller;
 

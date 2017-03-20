@@ -1,6 +1,6 @@
 <?php
 
-namespace common\modules\shop;
+namespace aminkt\shop;
 
 /**
  * Shop module definition class
