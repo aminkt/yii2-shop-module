@@ -8,5 +8,6 @@
  */
 
 require_once 'functions.php';
+require_once 'general_template.php';
 require_once 'categories.php';
 require_once 'products.php';

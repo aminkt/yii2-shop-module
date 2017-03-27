@@ -11,6 +11,9 @@ class Shop extends \yii\base\Module
 {
     const THEME_PATH = '@shop/views';
 
+    /** Global access to current data provider. */
+    const GLOBAL_VAR_DATA_PROVIDER = 'shop-dataProvider';
+
     /** @var null $theme theme mapping */
     public $theme = null;
 
@@ -43,5 +46,23 @@ class Shop extends \yii\base\Module
             \Yii::$app->view->theme = new \yii\base\Theme($this->theme);
         }
         // custom initialization code goes here
+    }
+
+    /**
+     * Return an global var.
+     * @param string $name  Var name
+     * @return mixed
+     */
+    public static function getGlobalVar($name){
+        return \Yii::$app->params[$name];
+    }
+
+    /**
+     * Set a global var.
+     * @param string $name Var name.
+     * @param mixed $value  Var value.
+     */
+    public static function setGlobalVar($name, $value){
+        \Yii::$app->params[$name]=$value;
     }
 }

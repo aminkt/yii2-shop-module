@@ -12,7 +12,6 @@ use yii\web\NotFoundHttpException;
  */
 class ShopController extends Controller
 {
-
     public function beforeAction($action)
     {
         $this->renderPartial('/template_helpers/helper.php');
@@ -46,8 +45,39 @@ class ShopController extends Controller
 
         $productsQuery = $category->getCategoryProductsQuery();
         $dataProvider = new ActiveDataProvider([
-            'query'=>$productsQuery
+            'query'=>$productsQuery,
+            'pagination'=>[
+                'pageSize'=>\Yii::$app->getRequest()->get('per-page', 18),
+                'defaultPageSize'=>18
+            ],
+            'sort'=>[
+                'attributes'=>[
+                    'visitNum'=>[
+                        'default'=>SORT_DESC,
+                        'label'=>'محبوب ترین',
+                    ],
+                    'orderNum'=>[
+                        'default'=>SORT_DESC,
+                        'label'=>'پرفروش ترین',
+                    ],
+                    'updateTime'=>[
+                        'default'=>SORT_DESC,
+                        'label'=>'جدیدترین',
+                    ],
+                    'price'=>[
+                        'default'=>SORT_DESC,
+                        'label'=>'قیمت',
+                    ],
+                    'name'=>[
+                        'default'=>SORT_DESC,
+                        'label'=>'نام',
+                    ],
+                ],
+            ]
         ]);
+
+        Shop::setGlobalVar(Shop::GLOBAL_VAR_DATA_PROVIDER, $dataProvider);
+
         return $this->render('category', [
             'category'=>$category,
             'products'=>$dataProvider->models,
@@ -82,6 +112,15 @@ class ShopController extends Controller
      * @return string
      */
     public function actionSearch(){
+        return $this->render('search');
+    }
+
+    /**
+     * Check order tracking code and show status of order.
+     * @param string $code Order tracking code.
+     * @return string
+     */
+    public function actionTrackOrder($code){
         return $this->render('search');
     }
 }
