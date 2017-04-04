@@ -265,3 +265,12 @@ function amount_filter_slider($args = []){
 
     return $html;
 }
+
+/**
+ * Return shopping cart object.
+ * @return \aminkt\shop\components\shoppingCart\ShoppingCart
+ */
+function get_shop_cart(){
+    $cart = new \aminkt\shop\components\shoppingCart\ShoppingCart();
+    return $cart;
+}

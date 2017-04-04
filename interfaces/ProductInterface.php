@@ -1,5 +1,6 @@
 <?php
 namespace aminkt\shop\interfaces;
+use aminkt\shop\components\shoppingCart\CartPositionProviderInterface;
 
 /**
  * Interface ProductInterface
@@ -7,7 +8,7 @@ namespace aminkt\shop\interfaces;
  *
  * Define an interface for product model in app to grantee some important data be available for ordering module.
  */
-interface ProductInterface extends \aminkt\ordering\interfaces\ProductInterface
+interface ProductInterface extends \aminkt\ordering\interfaces\ProductInterface, CartPositionProviderInterface
 {
     /**
      * Return product by code

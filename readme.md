@@ -76,6 +76,17 @@ Step5: Implement
 * `aminkt\shop\interfaces\ProductInterface` in your products model
 * `aminkt\shop\interfaces\CategoryInterface` in your Category model
 
+Step6: Add flowing code into yor product modal.
+```
+public function getCartPosition()
+{
+    return \Yii::createObject([
+        'class' => ProductCartPosition::className(),
+        'id' => $this->id,
+    ]);
+}
+```
+
 Step6: In `@frontendWeb/themes/theme_name/shop` path create your own template of shop.
 
 Step6: Enjoy from module.
