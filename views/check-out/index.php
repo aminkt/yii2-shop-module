@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 /* @var $cart \aminkt\shop\components\shoppingCart\ShoppingCart */
+/* @var $model \aminkt\shop\models\CheckoutForm */
 
 $this->title = 'پرداخت سفارش';
 $this->params['description'] = 'پرداخت سفارش';
@@ -21,66 +22,54 @@ $this->params['description'] = 'پرداخت سفارش';
                         سفارش شما شامل اقلام زیر میشود. در صورت وجود مغایرت سفارش خود را اصلاح کرده و سپس اقدام به تکمیل سفارش نمایید :
                     </p>
                     <div class="table-wrapper-responsive">
-                        <table>
-                            <tbody><tr>
-                                <th class="checkout-image">Image</th>
-                                <th class="checkout-description">Description</th>
-                                <th class="checkout-model">Model</th>
-                                <th class="checkout-quantity">Quantity</th>
-                                <th class="checkout-price">Price</th>
-                                <th class="checkout-total">Total</th>
-                            </tr>
+                        <table summary="Shopping cart">
                             <tr>
-                                <td class="checkout-image">
-                                    <a href="javascript:;"><img src="assets/pages/img/products/model3.jpg" alt="Berry Lace Dress"></a>
-                                </td>
-                                <td class="checkout-description">
-                                    <h3><a href="javascript:;">Cool green dress with red bell</a></h3>
-                                    <p><strong>Item 1</strong> - Color: Green; Size: S</p>
-                                    <em>More info is here</em>
-                                </td>
-                                <td class="checkout-model">RES.193</td>
-                                <td class="checkout-quantity">1</td>
-                                <td class="checkout-price"><strong><span>$</span>47.00</strong></td>
-                                <td class="checkout-total"><strong><span>$</span>47.00</strong></td>
+                                <th class="goods-page-image">تصویر</th>
+                                <th class="goods-page-description">توضیح</th>
+                                <th class="goods-page-quantity">تعداد</th>
+                                <th class="goods-page-price">قیمت واحد</th>
+                                <th class="goods-page-total" colspan="2">جمع کل</th>
                             </tr>
-                            <tr>
-                                <td class="checkout-image">
-                                    <a href="javascript:;"><img src="assets/pages/img/products/model4.jpg" alt="Berry Lace Dress"></a>
-                                </td>
-                                <td class="checkout-description">
-                                    <h3><a href="javascript:;">Cool green dress with red bell</a></h3>
-                                    <p><strong>Item 1</strong> - Color: Green; Size: S</p>
-                                    <em>More info is here</em>
-                                </td>
-                                <td class="checkout-model">RES.193</td>
-                                <td class="checkout-quantity">1</td>
-                                <td class="checkout-price"><strong><span>$</span>47.00</strong></td>
-                                <td class="checkout-total"><strong><span>$</span>47.00</strong></td>
-                            </tr>
-                            </tbody></table>
+                            <?php foreach ($cart->getPositions() as $position) : ?>
+                                <tr>
+                                    <td class="goods-page-image">
+                                        <a href="javascript:;"><img src="<?= $position->getProduct()->getMainPicture('thumb') ?>" alt="<?= $position->getProduct()->getName() ?>"></a>
+                                    </td>
+                                    <td class="goods-page-description">
+                                        <h3><a href="<?= $position->getProduct()->getLink() ?>"><?= $position->getProduct()->getName() ?></a></h3>
+                                        <p><strong>دسته محصول : </strong> <?= $position->getProduct()->getCategory()->getName() ?></p>
+                                        <em>وضعیت فعلی انبار : <?= $position->getProduct()->getStoreStatusString() ?></em>
+                                    </td>
+                                    <td class="goods-page-price">
+                                        <strong><span id="goods-quantity-<?= $position->getId() ?>" style="color: #000;"> <?= $position->getQuantity() ?> </span>  </strong>
+                                    </td>
+                                    <td class="goods-page-price">
+                                        <strong><span id="goods-price-<?= $position->getId() ?>"> <?= number_format($position->getPrice()) ?> </span> <span> تومان </span> </strong>
+                                    </td>
+                                    <td class="goods-page-total">
+                                        <strong><span id="goods-cost-<?= $position->getId() ?>"><?= number_format($position->getCost()) ?> </span> <span> تومان </span> </strong>
+                                    </td>
+                                    <td class="del-goods-col">
+                                        <a class="del-goods" href="<?= Url::to(['/shop/shopping-cart/remove-from-cart', 'id'=>$position->getId()]) ?>">&nbsp;</a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </table>
                     </div>
-                    <div class="checkout-total-block">
+
+                    <div class="shopping-total">
                         <ul>
                             <li>
-                                <em>Sub total</em>
-                                <strong class="price"><span>$</span>47.00</strong>
+                                <em>جمع فاکتور</em>
+                                <strong class="price"><span> تومان </span> <span id="total-cart-value" class="total-cart-value"><?= number_format($totalPrice = $cart->getCost()) ?></span></strong>
                             </li>
                             <li>
-                                <em>Shipping cost</em>
-                                <strong class="price"><span>$</span>3.00</strong>
+                                <em>هزینه ارسال</em>
+                                <strong class="price"><span> تومان </span> <span id="send-price"><?= number_format($sendPrice = 12000) ?></span></strong>
                             </li>
-                            <li>
-                                <em>Eco Tax (-2.00)</em>
-                                <strong class="price"><span>$</span>3.00</strong>
-                            </li>
-                            <li>
-                                <em>VAT (17.5%)</em>
-                                <strong class="price"><span>$</span>3.00</strong>
-                            </li>
-                            <li class="checkout-total-price">
-                                <em>Total</em>
-                                <strong class="price"><span>$</span>56.00</strong>
+                            <li class="shopping-total-price">
+                                <em>مبلغ کل</em>
+                                <strong class="price"><span> تومان </span> <span id="total-order-price"><?= number_format($totalPrice + $sendPrice) ?></span></strong>
                             </li>
                         </ul>
                     </div>
@@ -88,23 +77,30 @@ $this->params['description'] = 'پرداخت سفارش';
                 </div>
             </div>
             <hr>
+            <?php
+                $form = \yii\bootstrap\ActiveForm::begin();
+            ?>
             <div class="row">
                 <div class="col-md-12">
                     <h3>شیوه پرداخت سفارش</h3>
                     <p>لطفا شیوه پرداخت را انتخاب کنید</p>
                     <div class="radio-list">
-                        <?= Html::radioList('payment-method', 'online', [
-                            'online'=>'پرداخت آنلاین از طریق درگاه بانک',
-                            'cash'=>'پرداخت درب منزل به صورت نقد',
-                        ]) ?>
+                        <?= $form->field($model, 'paymentMethod')->inline()->radioList([
+                            $model::PAYMENT_METHOD_ONLINE=>'پرداخت آنلاین از طریق درگاه بانک',
+                            $model::PAYMENT_METHOD_CASH=>'پرداخت درب منزل به صورت نقد',
+                        ],[
+                            'itemOptions'=>[
+                                'style'=>'position:inherit; margin-left:inherit;'
+                            ]
+                        ])->label(false) ?>
                     </div>
-                    <div class="form-group">
-                        <label for="delivery-payment-method">در صورت نیاز به ذکر نکته ای، آن را در اینجا یاد داشت کنید: </label>
-                        <textarea id="delivery-payment-method" rows="8" class="form-control"></textarea>
-                    </div>
-                    <button class="btn btn-primary  pull-left collapsed" type="submit" id="button-payment-method" data-toggle="collapse" data-parent="#checkout-page" data-target="#confirm-content" aria-expanded="false">ادامه و تکمیل سفارش</button>
+
+                    <?= $form->field($model, 'note')->textarea(['rows'=>8])->label("در صورت نیاز به ذکر نکته ای، آن را در اینجا یاد داشت کنید:") ?>
+
+                    <?= Html::submitButton('ادامه و تکمیل سفارش', ['class'=>'btn btn-primary  pull-left collapsed']) ?>
                 </div>
             </div>
+            <?php \yii\bootstrap\ActiveForm::end() ?>
         </div>
     </div>
     <!-- END CONTENT -->
