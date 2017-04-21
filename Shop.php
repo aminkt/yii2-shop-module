@@ -1,6 +1,7 @@
 <?php
 
 namespace aminkt\shop;
+use aminkt\ordering\interfaces\CustomerProfileInterface;
 use aminkt\shop\interfaces\CategoryInterface;
 use aminkt\shop\interfaces\ProductInterface;
 
@@ -24,6 +25,9 @@ class Shop extends \yii\base\Module
     /** @var  CategoryInterface $categoryModel */
     public $categoryModel;
 
+    /** @var  CustomerProfileInterface $userModel */
+    public $userModel;
+
     /**
      * @inheritdoc
      */
@@ -45,7 +49,6 @@ class Shop extends \yii\base\Module
         if($this->theme){
             \Yii::$app->view->theme = new \yii\base\Theme($this->theme);
         }
-        // custom initialization code goes here
     }
 
     /**

@@ -1,5 +1,6 @@
 <?php
 /* @var $this yii\web\View */
+use common\components\TelbitGlobalClass;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -65,7 +66,13 @@ $this->params['description'] = 'پرداخت سفارش';
                             </li>
                             <li>
                                 <em>هزینه ارسال</em>
-                                <strong class="price"><span> تومان </span> <span id="send-price"><?= number_format($sendPrice = 12000) ?></span></strong>
+                                <?php
+                                $sendPrice = 12000;
+                                $shop = TelbitGlobalClass::getShop();
+                                if($shop)
+                                    $sendPrice = $shop->getSettings()->getPostPrice();
+                                ?>
+                                <strong class="price"><span> تومان </span> <span id="send-price"><?= number_format($sendPrice) ?></span></strong>
                             </li>
                             <li class="shopping-total-price">
                                 <em>مبلغ کل</em>
@@ -80,6 +87,30 @@ $this->params['description'] = 'پرداخت سفارش';
             <?php
                 $form = \yii\bootstrap\ActiveForm::begin();
             ?>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>مشخصات پستی</h3>
+                    <p>لطفا مشخصات پستی خود را وارد کنید:</p>
+                    <div class="row">
+                        <div class="col-md-5">
+
+                            <?= $form->field($model, 'mobile')->widget(\yii\widgets\MaskedInput::className(), [
+                                'mask' => '+99 999-999-9999',
+                                'options'=>[
+                                    'style'=>'direction: ltr; text-align: left;',
+                                    'class'=>'form-control',
+                                    'disabled'=>true,
+                                ],
+                            ]) ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <?= $form->field($model, 'address')->textarea(['rows'=>5]) ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-12">
                     <h3>شیوه پرداخت سفارش</h3>

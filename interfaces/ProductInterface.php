@@ -1,5 +1,6 @@
 <?php
 namespace aminkt\shop\interfaces;
+
 use aminkt\shop\components\shoppingCart\CartPositionProviderInterface;
 
 /**

@@ -67,6 +67,7 @@ class CheckOutController extends Controller
                 } elseif($model->paymentMethod == $model::PAYMENT_METHOD_CASH) {
                     $order->setPayType($order::PAY_TYPE_IN_PLACE);
                     Alert::success('سفارش شما با موفقیت ثبت شد.', 'مبلغ سفارش هنگام دریافت سفارش از شما دریافت خواهد شد.');
+                    return $this->redirect(['/shop/account/orders']);
                 }
             }else{
                 \Yii::error($model->getErrors(), self::className());

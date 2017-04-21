@@ -50,6 +50,7 @@ Step3: Add flowing lines in module part of your frontend application config:
     'class'=>\aminkt\shop\Shop::className(),
     'productModel' => models\Product::className(),
     'categoryModel' => models\Category::className(),
+    'userModel' => models\Member::className(),
     'theme' => [
         'pathMap' => [
             \aminkt\shop\Shop::THEME_PATH =>'@frontendWeb/themes/theme_name/shop',
@@ -72,7 +73,7 @@ step4: Add flowing lines in components part of your application config:
 Step5: Implement 
 * `aminkt\ordering\interfaces\OrderInterface` in your orders model
 * `aminkt\ordering\interfaces\OrderItemInterface` in your orderItems model
-* `aminkt\ordering\interfaces\CustomerProfileInterface` in you customer users model
+* `aminkt\shop\interfaces\CustomerProfileInterface` in you customer users model
 * `aminkt\shop\interfaces\ProductInterface` in your products model
 * `aminkt\shop\interfaces\CategoryInterface` in your Category model
 

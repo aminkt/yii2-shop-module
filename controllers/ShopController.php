@@ -119,8 +119,16 @@ class ShopController extends Controller
      * Check order tracking code and show status of order.
      * @param string $code Order tracking code.
      * @return string
+     * @throws NotFoundHttpException
      */
-    public function actionTrackOrder($code){
-        return $this->render('search');
+    public function actionTrackOrder($code=null){
+        /** @var \aminkt\ordering\Order $orderModule */
+        $orderModule = \Yii::$app->getModule('ordering');
+        $orderModel = $orderModule->orderModelName;
+        $order = $orderModel::getOrderByTrackingCode($code);
+
+        return $this->render('trackOrder', [
+            'order'=>$order
+        ]);
     }
 }
