@@ -53,7 +53,7 @@ interface ProductInterface extends \aminkt\ordering\interfaces\ProductInterface,
      * Return urls of product pictures as array
      * @param $size string size of picture
      * @param bool $path Return address as path or url
-     * @return null|\string[]
+     * @return string[]
      */
     public function getPictures($size=null, $path=null);
 
