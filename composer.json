@@ -24,6 +24,7 @@
   ],
   "require": {
     "yiisoft/yii2": "~2.0.0",
+    "aminkt/yii2-alert-widget": "dev-master",
     "aminkt/yii2-ordering-module": "*"
   },
   "autoload": {

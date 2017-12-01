@@ -7,6 +7,7 @@
  * Time: 11:10 AM
  * Created in telbit project
  */
+
 use yii\helpers\Html;
 
 /**
@@ -129,6 +130,7 @@ function list_categories( $args = [] ) {
  */
 function out_list_categories( $args = [] , $child_list=false) {
     $categories = get_args_value('categories', $args);
+    $categories = $categories ? $categories : [];
     $current_cat = get_args_value('current_categories', $args, []);
     $options = get_args_value('htmlOptions', $args, []);
     $ul_options = get_args_value('ul', $options, []);
