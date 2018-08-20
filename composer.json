@@ -16,12 +16,6 @@
       "email": "ak_1596@yahoo.com"
     }
   ],
-  "repositories": [
-    {
-      "type": "gitlab",
-      "url": "https://gitlab.com/aminkt/yii2-ordering-module"
-    }
-  ],
   "require": {
     "yiisoft/yii2": "~2.0.0",
     "aminkt/yii2-alert-widget": "dev-master",
@@ -31,12 +25,5 @@
     "psr-4": {
       "aminkt\\shop\\": ""
     }
-  },
-  "extra": {
-    "branch-alias": {
-      "dev-master": "master"
-    }
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true
+  }
 }
