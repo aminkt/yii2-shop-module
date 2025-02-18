@@ -20,7 +20,7 @@ class CheckoutForm extends Model
     public $mobile;
     /** @var  string $address Address of user to get order */
     public $address;
-    /** @var  integer $paymentMethod Payment method */
+    /** @var  integer $paymentMethod PaymentProvider method */
     public $paymentMethod;
     /** @var  string $note User note about current order. */
     public $note;
